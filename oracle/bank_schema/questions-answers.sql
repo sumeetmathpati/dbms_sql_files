@@ -39,6 +39,21 @@ WHERE account.branch_name = 'Pune1' OR account.branch_name = 'Mumbai1';
 --  Find the total amount each branch has in accounts
 SELECT branch_name, SUM(balance) FROM account GROUP BY branch_name;
 
+-- Find the average loan amount of each customer
+
+SELECT customer.customer_name, AVG(loan.amount)
+FROM loan JOIN borrower on loan.loan_number = borrower.loan_number
+JOIN customer ON customer.customer_id = borrower.customer_id
+GROUP BY customer.customer_name;
+
+-- Find the names of all customers who have an account at branch located in Pune
+
+SELECT customer.customer_name 
+FROM customer JOIN depositor ON customer.customer_id = depositor.customer_id
+JOIN account ON account.account_number = depositor.account_number
+JOIN branch on branch.branch_name = account.branch_name
+WHERE branch_city = 'Pune';
+
 
 
 

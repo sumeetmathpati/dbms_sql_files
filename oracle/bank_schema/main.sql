@@ -20,6 +20,9 @@ CREATE TABLE account (
     FOREIGN KEY(branch_name) REFERENCES branch(branch_name)
 );
 
+alter table account add constraint balance_not_negetive check (balance >= 0);
+select * from user_constraints where tbale_name = 'account';
+
 CREATE TABLE loan (
     loan_number NUMBER(15),
     branch_name VARCHAR2(30),
@@ -38,7 +41,7 @@ CREATE TABLE DEPOSITOR (
 
 CREATE TABLE borrower(
     customer_id NUMBER(15),
-    loan_number NUMBER(15),
+    loan_number NUMBER(15) UNIQUE,
     PRIMARY KEY(customer_id, loan_number),
     FOREIGN KEY(customer_id) REFERENCES customer(customer_id),
     FOREIGN KEY(loan_number) REFERENCES loan(loan_number);
@@ -85,13 +88,16 @@ INSERT INTO loan VALUES(2, 'Mumbai1', 100);
 INSERT INTO loan VALUES(3, 'Delhi1', 1500);
 INSERT INTO loan VALUES(4, 'Delhi1', 2000);
 INSERT INTO loan VALUES(5, 'Delhi1', 2000);
+INSERT INTO loan VALUES(6, 'Chennai1', 3000);
+INSERT INTO loan VALUES(7, 'Pune2', 4000);
 
+
+-- borrower(customer_id, loan_number)
 INSERT INTO borrower VALUES(1, 1);
 INSERT INTO borrower VALUES(2, 2);
 INSERT INTO borrower VALUES(3, 3);
 INSERT INTO borrower VALUES(4, 4);
 INSERT INTO borrower VALUES(5, 5);
-INSERT INTO borrower VALUES(8, 5);
-
-
+INSERT INTO borrower VALUES(8, 6);
+INSERT INTO borrower VALUES(1, 7);
 
